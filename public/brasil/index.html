@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orus Company  Portfólio</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #c9a84c;
+    --gold-light: #e8c96e;
+    --gold-dim: #8a6f2e;
+    --black: #0d0d0d;
+    --dark: #111111;
+    --dark2: #1a1a1a;
+    --dark3: #222222;
+    --white: #f0ece0;
+    --gray: #888880;
+    --gray-light: #bbbbaa;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* ── NOISE TEXTURE ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(201,168,76,0.08) 0%, transparent 70%);
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(72px, 12vw, 140px);
+    font-weight: 300;
+    letter-spacing: -2px;
+    line-height: 1;
+    color: var(--white);
+    margin-bottom: 4px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.3s forwards;
+  }
+
+  .hero-logo span { color: var(--gold); }
+
+  .hero-sub {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: var(--gray);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.4s forwards;
+  }
+
+  .hero-line {
+    width: 80px; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 0 auto 48px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.5s forwards;
+  }
+
+  .hero-headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 4vw, 38px);
+    font-weight: 300;
+    font-style: italic;
+    color: var(--white);
+    max-width: 640px;
+    line-height: 1.4;
+    margin-bottom: 16px;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.6s forwards;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    color: var(--gray-light);
+    max-width: 500px;
+    line-height: 1.8;
+    opacity: 0;
+    animation: fadeUp 0.9s 0.7s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s 1.2s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gray);
+  }
+
+  .scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s infinite;
+  }
+
+  /* ── SECTIONS ── */
+  section {
+    padding: 100px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--gold-dim);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 60px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    margin-top: 60px;
+    align-items: start;
+  }
+
+  @media(max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+  .about-text p {
+    font-size: 15px;
+    line-height: 1.9;
+    color: var(--gray-light);
+    margin-bottom: 20px;
+  }
+
+  .about-text p strong { color: var(--white); font-weight: 500; }
+
+  .about-sigla {
+    background: var(--dark2);
+    border: 1px solid rgba(201,168,76,0.15);
+    border-left: 3px solid var(--gold);
+    padding: 32px;
+    border-radius: 2px;
+  }
+
+  .about-sigla h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 20px;
+  }
+
+  .sigla-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 14px;
+    align-items: flex-start;
+  }
+
+  .sigla-letter {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 24px;
+    line-height: 1;
+  }
+
+  .sigla-word {
+    font-size: 13px;
+    color: var(--gray-light);
+    line-height: 1.5;
+  }
+
+  .sigla-word strong { color: var(--white); display: block; font-size: 14px; }
+
+  /* ── SERVICES ── */
+  .services-bg {
+    background: var(--dark2);
+    border-top: 1px solid rgba(201,168,76,0.08);
+    border-bottom: 1px solid rgba(201,168,76,0.08);
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .service-card {
+    background: var(--dark3);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover { background: #1e1e1e; }
+
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .service-icon {
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .service-desc {
+    font-size: 13px;
+    color: var(--gray);
+    line-height: 1.7;
+  }
+
+  .service-tag {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold);
+    border: 1px solid rgba(201,168,76,0.3);
+    padding: 4px 10px;
+    border-radius: 1px;
+  }
+
+  /* ── PORTFOLIO ── */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .portfolio-card {
+    position: relative;
+    background: var(--dark2);
+    border: 1px solid rgba(255,255,255,0.04);
+    overflow: hidden;
+    transition: border-color 0.3s, transform 0.3s;
+    border-radius: 2px;
+  }
+
+  .portfolio-card:hover {
+    border-color: rgba(201,168,76,0.25);
+    transform: translateY(-4px);
+  }
+
+  .portfolio-header {
+    padding: 32px 28px 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+  }
+
+  .portfolio-sector {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .portfolio-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .portfolio-url {
+    font-size: 11px;
+    color: var(--gray);
+    text-decoration: none;
+    letter-spacing: 0.5px;
+  }
+
+  .portfolio-url:hover { color: var(--gold); }
+
+  .portfolio-body {
+    padding: 24px 28px 28px;
+  }
+
+  .portfolio-desc {
+    font-size: 13px;
+    color: var(--gray-light);
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .portfolio-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .ptag {
+    font-size: 10px;
+    padding: 4px 10px;
+    background: rgba(201,168,76,0.07);
+    border: 1px solid rgba(201,168,76,0.2);
+    color: var(--gold);
+    border-radius: 1px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ── PACKAGES ── */
+  .packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .pkg {
+    padding: 40px 32px 48px;
+    background: var(--dark2);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .pkg.featured {
+    background: var(--dark3);
+    border: 1px solid rgba(201,168,76,0.2);
+  }
+
+  .pkg-badge {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--black);
+    background: var(--gold);
+    padding: 4px 10px;
+    border-radius: 1px;
+  }
+
+  .pkg-tier {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dim);
+    margin-bottom: 8px;
+  }
+
+  .pkg-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .pkg-sub {
+    font-size: 12px;
+    color: var(--gray);
+    font-style: italic;
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  .pkg-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--gold);
+    margin-bottom: 4px;
+  }
+
+  .pkg-price-note {
+    font-size: 11px;
+    color: var(--gray);
+    margin-bottom: 32px;
+  }
+
+  .pkg-divider {
+    width: 40px; height: 1px;
+    background: var(--gold-dim);
+    margin-bottom: 28px;
+  }
+
+  .pkg-feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+    font-size: 13px;
+    color: var(--gray-light);
+    line-height: 1.5;
+  }
+
+  .pkg-feature::before {
+    content: '✓';
+    color: var(--gold);
+    font-size: 12px;
+    margin-top: 1px;
+    flex-shrink: 0;
+  }
+
+  .pkg-ideal {
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    font-size: 11px;
+    color: var(--gray);
+    font-style: italic;
+    line-height: 1.5;
+  }
+
+  /* ── SEGMENTS ── */
+  .segments-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .seg-card {
+    padding: 28px 20px;
+    background: var(--dark2);
+    text-align: center;
+    transition: background 0.3s;
+    cursor: default;
+  }
+
+  .seg-card:hover { background: var(--dark3); }
+
+  .seg-icon { font-size: 28px; margin-bottom: 12px; }
+
+  .seg-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .seg-note { font-size: 11px; color: var(--gray); line-height: 1.5; }
+
+  /* ── DIFFERENTIALS ── */
+  .diff-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  @media(max-width: 600px) { .diff-grid { grid-template-columns: 1fr; } }
+
+  .diff-item {
+    padding: 32px;
+    background: var(--dark2);
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+  }
+
+  .diff-icon {
+    font-size: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .diff-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .diff-desc { font-size: 13px; color: var(--gray); line-height: 1.6; }
+
+  /* ── QUOTE ── */
+  .quote-section {
+    text-align: center;
+    padding: 80px 24px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 80px;
+    color: var(--gold);
+    line-height: 0.6;
+    margin-bottom: 24px;
+    display: block;
+    opacity: 0.4;
+  }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3.5vw, 34px);
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--white);
+    margin-bottom: 20px;
+  }
+
+  .quote-author {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    background: var(--dark2);
+    border-top: 1px solid rgba(201,168,76,0.1);
+    padding: 100px 24px;
+    text-align: center;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 6vw, 72px);
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  .cta-title em { font-style: italic; color: var(--gold); }
+
+  .cta-desc {
+    font-size: 15px;
+    color: var(--gray-light);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    padding: 18px 48px;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.3s, transform 0.2s;
+    border-radius: 1px;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .cta-contact {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .cta-contact-item {
+    font-size: 12px;
+    color: var(--gray);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .cta-contact-item span:first-child { color: var(--gold); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding: 40px 24px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+
+  .footer-logo span { color: var(--gold); }
+
+  .footer-sigla {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: var(--gray);
+    margin-bottom: 24px;
+  }
+
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(13,13,13,0.9), transparent);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    color: var(--white);
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--gold); }
+
+  @media(max-width: 600px) { .nav-links { display: none; } nav { padding: 16px 24px; } }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s, transform 0.7s;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── STATS ── */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .stat {
+    padding: 32px 24px;
+    background: var(--dark2);
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    color: var(--gray);
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+  }
+
+  /* DIVIDER */
+  .gold-divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,168,76,0.3), transparent);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">O<span>R</span>US</div>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#pacotes">Pacotes</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <p class="hero-tag">Treinamento Comercial Exclusivo</p>
+  <h1 class="hero-logo">O<span>R</span>US</h1>
+  <p class="hero-sub">Company</p>
+  <div class="hero-line"></div>
+  <h2 class="hero-headline">Não somos uma agência. Somos um sistema de crescimento.</h2>
+  <p class="hero-desc">Combinamos tráfego pago, inteligência artificial e automação para transformar negócios locais em operações escaláveis e previsíveis.</p>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- SOBRE -->
+<section id="sobre">
+  <div class="section-label">Sobre nós</div>
+  <h2 class="section-title reveal">Quem é a<br><em>Orus Company</em></h2>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>A <strong>Orus Company</strong> é uma empresa de marketing digital e tecnologia fundada em Fortaleza, CE, com atuação em todo o Brasil.</p>
+      <p>Nosso diferencial não está nos serviços que oferecemos  está em como os integramos. Tráfego pago, automação com IA, CRM e presença digital funcionam como um ecossistema único, não como peças soltas.</p>
+      <p>O resultado: seu negócio atrai os clientes certos, atende automaticamente 24 horas por dia e converte com previsibilidade  mesmo enquanto você dorme.</p>
+    </div>
+    <div class="about-sigla reveal">
+      <h3>O · R · U · S</h3>
+      <div class="sigla-item">
+        <span class="sigla-letter">O</span>
+        <div class="sigla-word"><strong>Otimização</strong> de cada real investido em anúncios e processos</div>
+      </div>
+      <div class="sigla-item">
+        <span class="sigla-letter">R</span>
+        <div class="sigla-word"><strong>Retorno</strong> mensurável, real e previsível para o seu negócio</div>
+      </div>
+      <div class="sigla-item">
+        <span class="sigla-letter">U</span>
+        <div class="sigla-word"><strong>Unidades</strong> de crescimento personalizadas para cada cliente</div>
+      </div>
+      <div class="sigla-item">
+        <span class="sigla-letter">S</span>
+        <div class="sigla-word"><strong>Scale</strong>  escala sustentável, sem perder qualidade</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-row reveal">
+    <div class="stat">
+      <div class="stat-num">3–5</div>
+      <div class="stat-label">Contatos qualificados<br>por dia para nossos clientes</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Atendimento automático<br>via IA no WhatsApp</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">5s</div>
+      <div class="stat-label">Tempo médio de resposta<br>do agente virtual</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">+40%</div>
+      <div class="stat-label">Aumento médio em conversão<br>após implantação</div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- SERVIÇOS -->
+<div class="services-bg">
+<section id="servicos" style="max-width:1100px;margin:0 auto;padding:100px 24px;">
+  <div class="section-label">O que fazemos</div>
+  <h2 class="section-title reveal">Nossos<br><em>Serviços</em></h2>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-icon">📊</div>
+      <h3 class="service-title">Gestão de Tráfego Pago</h3>
+      <p class="service-desc">Campanhas Meta Ads e Google Ads com Ultra Segmentação proprietária. Seu anúncio aparece para quem já está procurando o que você oferece, na sua região.</p>
+      <span class="service-tag">Meta Ads · Google Ads</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <div class="service-icon">🤖</div>
+      <h3 class="service-title">Agente de IA no WhatsApp</h3>
+      <p class="service-desc">Automação inteligente que responde em 5 segundos, qualifica o lead e agenda reuniões  sábado, domingo, madrugada, sem intervenção humana.</p>
+      <span class="service-tag">IA · Automação · WhatsApp</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <div class="service-icon">🔄</div>
+      <h3 class="service-title">CRM e Funil de Vendas</h3>
+      <p class="service-desc">Organização completa da jornada do cliente, do primeiro contato ao fechamento. Nenhum lead se perde no caminho.</p>
+      <span class="service-tag">CRM · Pipeline · Automação</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">04</div>
+      <div class="service-icon">🌐</div>
+      <h3 class="service-title">Sites e Landing Pages</h3>
+      <p class="service-desc">Páginas profissionais de alta conversão, desenvolvidas para transformar visitante em lead e lead em cliente.</p>
+      <span class="service-tag">Web · Design · Conversão</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">05</div>
+      <div class="service-icon">📱</div>
+      <h3 class="service-title">Social Media Estratégico</h3>
+      <p class="service-desc">Conteúdo com propósito: cada post construído para gerar autoridade, atrair o público certo e nutrir futuros clientes.</p>
+      <span class="service-tag">Instagram · Conteúdo · Estratégia</span>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">06</div>
+      <div class="service-icon">🔍</div>
+      <h3 class="service-title">Auditoria Digital Gratuita</h3>
+      <p class="service-desc">Análise completa da sua presença digital. Identificamos o que está te fazendo perder clientes sem você perceber  sem custo, sem compromisso.</p>
+      <span class="service-tag">Diagnóstico · Gratuito</span>
+    </div>
+  </div>
+</section>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- QUOTE -->
+<div class="quote-section reveal">
+  <span class="quote-mark">"</span>
+  <p class="quote-text">Agência comum vende serviço de marketing. A Orus vende resultado. Se você não cresce, a gente não cresce.</p>
+  <p class="quote-author">Orus Company · Fortaleza, Brasil</p>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- PORTFOLIO -->
+<section id="portfolio">
+  <div class="section-label">Nosso trabalho</div>
+  <h2 class="section-title reveal">Clientes &<br><em>Portfólio</em></h2>
+  <div class="portfolio-grid">
+
+    <div class="portfolio-card reveal">
+      <div class="portfolio-header">
+        <div class="portfolio-sector">Concessionária · Fortaleza</div>
+        <div class="portfolio-name">Fortal Auto</div>
+        <a href="https://fortalauto.com.br" class="portfolio-url" target="_blank">fortalauto.com.br ↗</a>
+      </div>
+      <div class="portfolio-body">
+        <p class="portfolio-desc">Concessionária de seminovos que dependia exclusivamente de clientes passando na porta. Em 45 dias com a Orus, passou a receber 3 a 5 contatos qualificados por dia diretamente no WhatsApp.</p>
+        <div class="portfolio-tags">
+          <span class="ptag">Site</span>
+          <span class="ptag">Tráfego Pago</span>
+          <span class="ptag">Meta Ads</span>
+          <span class="ptag">Landing Page</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card reveal">
+      <div class="portfolio-header">
+        <div class="portfolio-sector">Locação de Eventos · Fortaleza</div>
+        <div class="portfolio-name">North Locações</div>
+        <a href="https://northlocacoes.com.br" class="portfolio-url" target="_blank">northlocacoes.com.br ↗</a>
+      </div>
+      <div class="portfolio-body">
+        <p class="portfolio-desc">Empresa de locação de mesas, cadeiras e estruturas para eventos. Criamos presença digital completa com site de alta conversão e estratégia de captação de leads para eventos corporativos e sociais.</p>
+        <div class="portfolio-tags">
+          <span class="ptag">Site</span>
+          <span class="ptag">Social Media</span>
+          <span class="ptag">Captação de Leads</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card reveal">
+      <div class="portfolio-header">
+        <div class="portfolio-sector">Medicina · Emagrecimento · Fortaleza</div>
+        <div class="portfolio-name">Dr. Paulo Fernandes</div>
+        <a href="https://drpaulofernandes.com" class="portfolio-url" target="_blank">drpaulofernandes.com ↗</a>
+      </div>
+      <div class="portfolio-body">
+        <p class="portfolio-desc">Médico especialista em emagrecimento. Desenvolvemos posicionamento digital premium, calendário de conteúdo estratégico e campanhas de captação de pacientes qualificados.</p>
+        <div class="portfolio-tags">
+          <span class="ptag">Site</span>
+          <span class="ptag">Social Media</span>
+          <span class="ptag">Meta Ads</span>
+          <span class="ptag">CRM</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card reveal">
+      <div class="portfolio-header">
+        <div class="portfolio-sector">Beleza · Estética</div>
+        <div class="portfolio-name">Salão de Beleza</div>
+        <a href="#" class="portfolio-url">Referência de segmento</a>
+      </div>
+      <div class="portfolio-body">
+        <p class="portfolio-desc">Gestão completa de tráfego pago e automação de WhatsApp para estúdios de beleza. Resultado: redução de horários vagos e aumento do ticket médio por cliente.</p>
+        <div class="portfolio-tags">
+          <span class="ptag">Tráfego Pago</span>
+          <span class="ptag">Automação IA</span>
+          <span class="ptag">Social Media</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="portfolio-card reveal">
+      <div class="portfolio-header">
+        <div class="portfolio-sector">Imóveis · Corretagem</div>
+        <div class="portfolio-name">Corretoras de Imóveis</div>
+        <a href="#" class="portfolio-url">Referência de segmento</a>
+      </div>
+      <div class="portfolio-body">
+        <p class="portfolio-desc">Estratégia de captação e qualificação de leads para corretoras. Agente de IA filtra curiosos e entrega apenas leads com perfil e intenção real de compra.</p>
+        <div class="portfolio-tags">
+          <span class="ptag">Meta Ads</span>
+          <span class="ptag">Agente IA</span>
+          <span class="ptag">CRM</span>
+          <span class="ptag">Landing Page</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- SEGMENTOS -->
+<div class="services-bg">
+<section style="max-width:1100px;margin:0 auto;padding:100px 24px;">
+  <div class="section-label">Onde atuamos</div>
+  <h2 class="section-title reveal">Segmentos<br><em>atendidos</em></h2>
+  <div class="segments-grid">
+    <div class="seg-card reveal"><div class="seg-icon">🏥</div><div class="seg-name">Clínicas</div><div class="seg-note">Médicos, dentistas, estética</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">🚗</div><div class="seg-name">Concessionárias</div><div class="seg-note">Veículos novos e seminovos</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">✂️</div><div class="seg-name">Beleza</div><div class="seg-note">Salões, barbearias, studios</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">🏠</div><div class="seg-name">Imóveis</div><div class="seg-note">Corretores e imobiliárias</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">🎪</div><div class="seg-name">Eventos</div><div class="seg-note">Locação e organização</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">🍽️</div><div class="seg-name">Restaurantes</div><div class="seg-note">Delivery e presença local</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">💪</div><div class="seg-name">Academias</div><div class="seg-note">Captação e retenção</div></div>
+    <div class="seg-card reveal"><div class="seg-icon">⚖️</div><div class="seg-name">Advogados</div><div class="seg-note">Posicionamento de autoridade</div></div>
+  </div>
+</section>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- DIFERENCIAIS -->
+<section>
+  <div class="section-label">Por que a Orus</div>
+  <h2 class="section-title reveal">Nossos<br><em>Diferenciais</em></h2>
+  <div class="diff-grid">
+    <div class="diff-item reveal">
+      <div class="diff-icon">🎯</div>
+      <div>
+        <div class="diff-title">Ultra Segmentação</div>
+        <div class="diff-desc">Metodologia proprietária que garante que cada real investido em anúncio atinja exatamente quem tem perfil para comprar.</div>
+      </div>
+    </div>
+    <div class="diff-item reveal">
+      <div class="diff-icon">⚡</div>
+      <div>
+        <div class="diff-title">Ecossistema Integrado</div>
+        <div class="diff-desc">Tráfego, IA, CRM e site funcionando juntos. Não vendemos peças  vendemos um sistema completo.</div>
+      </div>
+    </div>
+    <div class="diff-item reveal">
+      <div class="diff-icon">📈</div>
+      <div>
+        <div class="diff-title">Orientação por Dados</div>
+        <div class="diff-desc">Relatórios transparentes, ROAS real, otimização diária. Sem achismo, sem promessa vazia.</div>
+      </div>
+    </div>
+    <div class="diff-item reveal">
+      <div class="diff-icon">🤝</div>
+      <div>
+        <div class="diff-title">Seleção de Clientes</div>
+        <div class="diff-desc">Trabalhamos com poucos clientes por segmento para não criar concorrência entre eles. Seu crescimento é nossa prioridade.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="gold-divider"></div>
+
+<!-- PACOTES -->
+<div class="services-bg">
+<section id="pacotes" style="max-width:1100px;margin:0 auto;padding:100px 24px;">
+  <div class="section-label">Investimento</div>
+  <h2 class="section-title reveal">Nossos<br><em>Pacotes</em></h2>
+  <div class="packages-grid">
+
+    <div class="pkg reveal">
+      <div class="pkg-tier">Entrada</div>
+      <div class="pkg-name">Starter</div>
+      <div class="pkg-sub">Para validar resultados e dar o primeiro passo no digital</div>
+      <div class="pkg-price">R$ 1.800</div>
+      <div class="pkg-price-note">a partir de / mês</div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-feature">Gestão de Tráfego Pago (Meta Ads)</div>
+      <div class="pkg-feature">Automação básica de WhatsApp</div>
+      <div class="pkg-feature">Relatório mensal com métricas reais</div>
+      <div class="pkg-ideal">Ideal para salões, restaurantes e prestadores de serviço</div>
+    </div>
+
+    <div class="pkg featured reveal">
+      <div class="pkg-badge">Mais escolhido</div>
+      <div class="pkg-tier">Crescimento</div>
+      <div class="pkg-name">Growth</div>
+      <div class="pkg-sub">O carro-chefe da Orus  melhor custo-benefício</div>
+      <div class="pkg-price">R$ 3.200</div>
+      <div class="pkg-price-note">a partir de / mês</div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-feature">Tráfego Pago (Meta + Google)</div>
+      <div class="pkg-feature">Agente de IA no WhatsApp 24/7</div>
+      <div class="pkg-feature">CRM básico integrado</div>
+      <div class="pkg-feature">Relatório semanal + reunião quinzenal</div>
+      <div class="pkg-ideal">Ideal para clínicas, academias e imobiliárias</div>
+    </div>
+
+    <div class="pkg reveal">
+      <div class="pkg-tier">Premium</div>
+      <div class="pkg-name">Elite</div>
+      <div class="pkg-sub">Ecossistema completo para escalar sem limite</div>
+      <div class="pkg-price">R$ 5.500</div>
+      <div class="pkg-price-note">a partir de / mês</div>
+      <div class="pkg-divider"></div>
+      <div class="pkg-feature">Tráfego Pago (Meta + Google)</div>
+      <div class="pkg-feature">Agente de IA Full no WhatsApp</div>
+      <div class="pkg-feature">CRM avançado + funil completo</div>
+      <div class="pkg-feature">Landing page dedicada</div>
+      <div class="pkg-feature">Social media estratégico</div>
+      <div class="pkg-feature">Dashboard em tempo real + gerente dedicado</div>
+      <div class="pkg-ideal">Ideal para concessionárias, grupos e franquias</div>
+    </div>
+
+  </div>
+</section>
+</div>
+
+<div class="gold-divider"></div>
+
+<!-- CTA -->
+<div class="cta-section" id="contato">
+  <h2 class="cta-title reveal">Pronto para<br><em>crescer de verdade?</em></h2>
+  <p class="cta-desc reveal">Fazemos uma auditoria gratuita da sua presença digital e mostramos exatamente o que está te fazendo perder clientes agora.</p>
+  <a href="https://wa.me/+5585989447828" class="cta-btn reveal">Falar com a Orus</a>
+  <div class="cta-contact reveal">
+    <div class="cta-contact-item"><span>📍</span><span>Fortaleza, Ceará  Brasil</span></div>
+    <div class="cta-contact-item"><span>📱</span><span>WhatsApp disponível</span></div>
+    <div class="cta-contact-item"><span>📧</span><span>contato@mjflowin.site</span></div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">O<span>R</span>US <span style="font-size:16px;color:var(--gray);">Company</span></div>
+  <div class="footer-sigla">O · R · U · S · Otimização de Retorno em Unidades de Scale</div>
+  <div class="footer-copy">© 2026 Orus Company. Todos os direitos reservados. Fortaleza, Brasil.</div>
+</footer>
+
+<script>
+  // Intersection Observer for reveal animations
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 60 * (Array.from(reveals).indexOf(entry.target) % 4));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
